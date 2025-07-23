@@ -409,7 +409,7 @@ const LoanManagement: React.FC<LoanManagementProps> = ({ currentUser }) => {
               />
             </Grid>
 
-            <Grid item xs={12} md={6}>
+            <Box sx={{ flex: 1 }}>
               <TextField
                 label="EMI Collection Percentage"
                 type="number"
@@ -425,9 +425,9 @@ const LoanManagement: React.FC<LoanManagementProps> = ({ currentUser }) => {
                 }}
                 helperText="Percentage of each transaction to collect for EMI"
               />
-            </Grid>
+            </Box>
 
-            <Grid item xs={12} md={6}>
+            <Box sx={{ flex: 1 }}>
               <TextField
                 label="EMI Due Date"
                 type="number"
@@ -441,10 +441,10 @@ const LoanManagement: React.FC<LoanManagementProps> = ({ currentUser }) => {
                 inputProps={{ min: 1, max: 28 }}
                 helperText="Day of month when EMI is due (1-28)"
               />
-            </Grid>
+            </Box>
 
             {newLoan.principalAmount > 0 && newLoan.interestRate > 0 && newLoan.loanTermMonths > 0 && (
-              <Grid item xs={12}>
+              <Box sx={{ width: '100%' }}>
                 <Alert severity="info">
                   <Typography variant="body2">
                     <strong>Calculated EMI: ₹{calculateEMI(
@@ -454,7 +454,7 @@ const LoanManagement: React.FC<LoanManagementProps> = ({ currentUser }) => {
                     ).toLocaleString()}</strong>
                   </Typography>
                 </Alert>
-              </Grid>
+              </Box>
             )}
           </Grid>
         </DialogContent>

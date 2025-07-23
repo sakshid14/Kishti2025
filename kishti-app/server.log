@@ -1,0 +1,2 @@
+127.0.0.1 - - [23/Jul/2025 16:18:30] "HEAD /preview.html HTTP/1.1" 200 -
+127.0.0.1 - - [23/Jul/2025 16:19:17] "GET /preview.html HTTP/1.1" 200 -

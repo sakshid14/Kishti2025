@@ -16,30 +16,38 @@ export interface Loan {
   id: number;
   borrowerId: number;
   lenderId: number;
-  principalAmount: number;
+  loanAmount: number;
+  principalAmount?: number;
   interestRate: number;
-  loanTermMonths: number;
-  emiAmount: number;
+  tenureMonths: number;
+  loanTermMonths?: number;
+  monthlyEmiAmount: number;
+  emiAmount?: number;
   emiCollectionPercentage: number;
-  emiDueDate: number;
-  startDate: string;
-  endDate: string;
+  emiDueDate?: number;
+  nextEmiDate: string;
+  startDate?: string;
+  endDate?: string;
+  outstandingAmount: number;
   status: 'ACTIVE' | 'COMPLETED' | 'DEFAULTED' | 'PENDING';
-  borrowerName: string;
+  borrowerName?: string;
   lenderName: string;
-  collectedAmount: number;
-  remainingAmount: number;
+  collectedAmount?: number;
+  remainingAmount?: number;
+  createdAt?: string;
 }
 
 export interface EMIWalletTransaction {
   id: number;
+  borrowerId?: number;
   loanId: number;
+  lenderName?: string;
   transactionAmount: number;
   emiCollectionAmount: number;
-  emiCollectionPercentage: number;
+  emiCollectionPercentage?: number;
   description: string;
   transactionDate: string;
-  createdAt: string;
+  createdAt?: string;
 }
 
 export interface EMIPayment {

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kishti - EMI Wallet for MSMEs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .demo-notice {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: center;
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        .metric-value {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .amount {
+            color: #28a745;
+            font-size: 1.1rem;
+        }
+
+        .loan-item {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .loan-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .loan-name {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .emi-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .transaction-table th,
+        .transaction-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .transaction-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #667eea;
+        }
+
+        .status-active {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .demo-data {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
+        }
+
+        .demo-data h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .feature h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .api-status {
+            background: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏦 Kishti</h1>
+            <p>EMI Wallet for MSMEs - Automatic EMI Collection & Payment</p>
+        </div>
+
+        <div class="demo-notice">
+            <h3>🚀 Live Demo Preview</h3>
+            <p>Backend API is running on port 8080 | Frontend with demo data</p>
+            <div class="api-status" id="api-status">✅ Backend API Active</div>
+        </div>
+
+        <div class="dashboard">
+            <!-- Borrower Dashboard -->
+            <div class="card">
+                <h3>📊 Borrower Dashboard</h3>
+                <div class="metric">
+                    <span class="metric-label">Total Outstanding</span>
+                    <span class="metric-value amount">₹7,00,000</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Monthly EMI</span>
+                    <span class="metric-value amount">₹33,216</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Collected This Month</span>
+                    <span class="metric-value amount">₹25,000</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Remaining EMI</span>
+                    <span class="metric-value amount">₹8,216</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Active Loans</span>
+                    <span class="metric-value">2</span>
+                </div>
+            </div>
+
+            <!-- Active Loans -->
+            <div class="card">
+                <h3>💼 Active Loans</h3>
+                <div class="loan-item">
+                    <div class="loan-header">
+                        <span class="loan-name">ABC Finance</span>
+                        <span class="emi-badge">15% EMI</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Loan Amount</span>
+                        <span class="metric-value">₹5,00,000</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Outstanding</span>
+                        <span class="metric-value">₹4,50,000</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Next EMI</span>
+                        <span class="metric-value">Feb 15, 2024</span>
+                    </div>
+                </div>
+
+                <div class="loan-item">
+                    <div class="loan-header">
+                        <span class="loan-name">XYZ Bank</span>
+                        <span class="emi-badge">20% EMI</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Loan Amount</span>
+                        <span class="metric-value">₹3,00,000</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Outstanding</span>
+                        <span class="metric-value">₹2,50,000</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Next EMI</span>
+                        <span class="metric-value">Feb 20, 2024</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Transactions -->
+            <div class="card" style="grid-column: 1 / -1;">
+                <h3>💳 Recent Transactions</h3>
+                <table class="transaction-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Lender</th>
+                            <th>Description</th>
+                            <th>Transaction Amount</th>
+                            <th>EMI Collected</th>
+                            <th>Remaining for Business</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Jan 28, 2024</td>
+                            <td>ABC Finance</td>
+                            <td>Customer payment received</td>
+                            <td>₹1,00,000</td>
+                            <td>₹15,000</td>
+                            <td>₹85,000</td>
+                        </tr>
+                        <tr>
+                            <td>Jan 27, 2024</td>
+                            <td>XYZ Bank</td>
+                            <td>Invoice payment</td>
+                            <td>₹50,000</td>
+                            <td>₹10,000</td>
+                            <td>₹40,000</td>
+                        </tr>
+                        <tr>
+                            <td>Jan 25, 2024</td>
+                            <td>ABC Finance</td>
+                            <td>Service payment</td>
+                            <td>₹75,000</td>
+                            <td>₹11,250</td>
+                            <td>₹63,750</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="demo-data">
+            <h2>🎯 Key Features Implemented</h2>
+            <div class="features">
+                <div class="feature">
+                    <h4>🔄 Automatic EMI Collection</h4>
+                    <p>Automatically blocks a percentage of each transaction as EMI payment based on loan terms.</p>
+                </div>
+                <div class="feature">
+                    <h4>📅 Scheduled Payments</h4>
+                    <p>Auto-pays collected EMI amounts to lenders on specified dates each month.</p>
+                </div>
+                <div class="feature">
+                    <h4>📊 Real-time Dashboard</h4>
+                    <p>Live tracking of EMI collections, outstanding amounts, and payment schedules.</p>
+                </div>
+                <div class="feature">
+                    <h4>🏢 Multi-Lender Support</h4>
+                    <p>Manage multiple loans from different lenders with consolidated EMI tracking.</p>
+                </div>
+                <div class="feature">
+                    <h4>💰 Transaction Management</h4>
+                    <p>Easy transaction entry with automatic EMI calculation and collection.</p>
+                </div>
+                <div class="feature">
+                    <h4>🔐 Secure API</h4>
+                    <p>RESTful backend with Spring Security, data validation, and error handling.</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <h3>🔧 Technical Stack</h3>
+                <p><strong>Backend:</strong> Java Spring Boot, Spring Data JPA, H2 Database, Spring Security</p>
+                <p><strong>Frontend:</strong> React + TypeScript, Material-UI, Recharts, Axios</p>
+                <p><strong>Features:</strong> Scheduled EMI processing, Real-time calculations, Role-based access</p>
+            </div>
+
+            <div style="margin-top: 20px; text-align: center;">
+                <h4>🌐 API Endpoints Available</h4>
+                <p>Backend running on <strong>http://localhost:8080</strong></p>
+                <p>Try: <code>/api/users</code>, <code>/api/emi-wallet/loans/borrower/{id}</code></p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>🚀 Kishti EMI Wallet - Empowering MSMEs with automated EMI management</p>
+            <p>Demo deployment ready for preview and testing</p>
+        </div>
+    </div>
+
+    <script>
+        // Test API connectivity
+        async function checkAPI() {
+            try {
+                const response = await fetch('http://localhost:8080/api/users');
+                if (response.ok) {
+                    document.getElementById('api-status').innerHTML = '✅ Backend API Active';
+                    document.getElementById('api-status').style.background = '#28a745';
+                } else {
+                    throw new Error('API not responding');
+                }
+            } catch (error) {
+                document.getElementById('api-status').innerHTML = '⚠️ Backend API Offline';
+                document.getElementById('api-status').style.background = '#dc3545';
+            }
+        }
+
+        // Check API status on load
+        checkAPI();
+        
+        // Recheck every 30 seconds
+        setInterval(checkAPI, 30000);
+
+        // Add some interactivity
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        });
+    </script>
+</body>
+</html>
